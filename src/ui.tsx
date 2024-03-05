@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import { App } from "./components/App";
 import "./styles/styles.scss";
-import { usePluginData } from "./hooks/";
+import { usePluginData } from "./hooks";
 
 const UI = () => {
   const [pluginData] = usePluginData();

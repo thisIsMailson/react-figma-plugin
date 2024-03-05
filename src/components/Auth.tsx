@@ -30,7 +30,7 @@ export const Auth = () => {
         fields={[
           {
             name: "apiKey",
-            placeholder: "API Key...",
+            placeholder: "API Key ya bum...",
             type: "text"
           }
         ]}

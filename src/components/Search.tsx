@@ -3,24 +3,11 @@ import { fetchNyTimesSearch, sendJsonMessage } from "./../utils/";
 import { Form } from "./Form";
 import { FILL_RESULTS } from "../messages";
 
-export const Search = ({ apiKey }) => {
+export const Search = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
-  const handleSubmit = async formFields => {
-    setLoading(true);
-    try {
-      let response = await fetchNyTimesSearch({
-        apiKey,
-        ...formFields
-      });
-      setLoading(false);
-      sendJsonMessage(FILL_RESULTS, {
-        response
-      });
-    } catch (e) {
-      setErrorMsg("Unable to Authorize!");
-    }
-    setLoading(false);
+  const handleSubmit = async (formFields) => {
+    console.log("formFields", "submited");
   };
   return (
     <div>
@@ -32,8 +19,8 @@ export const Search = ({ apiKey }) => {
           {
             name: "q",
             placeholder: "Search NY Times...",
-            type: "text"
-          }
+            type: "text",
+          },
         ]}
       />
     </div>
