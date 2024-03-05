@@ -1,0 +1,7 @@
+{
+  "api": "1.0.0",
+  "name": "Figma zip 2.0",
+  "main": "plugin.js",
+  "ui": "index.html",
+  "id": "945461539774727755"
+}
