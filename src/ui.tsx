@@ -7,6 +7,7 @@ import { usePluginData } from "./hooks";
 
 const UI = () => {
   const [pluginData] = usePluginData();
+
   return <App pluginData={pluginData} />;
 };
 

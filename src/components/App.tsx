@@ -1,6 +1,5 @@
 import React from "react";
-import { Auth } from "./../components/Auth";
-import { Search } from "./../components/Search";
+import { ZipAssets } from "./ZipAssets";
 
 type IAppProps = {
   pluginData?: {
@@ -11,11 +10,12 @@ type IAppProps = {
 };
 
 export const App = ({ pluginData }: IAppProps) => {
-  // const isAuthorized =
-  //   pluginData && pluginData.local && pluginData.local.apiKey;
   return (
     <div>
-      <Search />
+      {
+        //@ts-ignore
+        <ZipAssets data={pluginData} />
+      }
     </div>
   );
 };

@@ -3,7 +3,10 @@ const DATA_KEY = "FIGMA_NEWS_APP";
 
 const DATA_STRUCTURE = {
   local: {},
-  document: {}
+  document: {},
+};
+const NODE_DATA = {
+  data: [],
 };
 
 export class PluginDataManager {
@@ -11,19 +14,25 @@ export class PluginDataManager {
   figma: PluginAPI;
 
   constructor(figma: PluginAPI) {
-    this.data = DATA_STRUCTURE;
+    this.data = NODE_DATA;
     this.figma = figma;
 
-    this.fetchAndSyncDocumentData();
-    this.fetchAndSyncLocalData().then(() => {
-      this.updatePluginDataToUI();
-    });
+    this.updateNodesToUI();
   }
 
+  setNodeData(nodeData) {
+    this.data["data"] = nodeData;
+  }
+  private updateNodesToUI() {
+    this.figma.ui.postMessage({
+      type: UPDATE_PLUGIN_DATA,
+      data: this.data,
+    });
+  }
   private updatePluginDataToUI() {
     this.figma.ui.postMessage({
       type: UPDATE_PLUGIN_DATA,
-      data: this.data
+      data: this.data,
     });
   }
 
@@ -36,7 +45,7 @@ export class PluginDataManager {
   }
 
   async fetchAndSyncLocalData() {
-    return figma.clientStorage.getAsync(DATA_KEY).then(fetched_data => {
+    return figma.clientStorage.getAsync(DATA_KEY).then((fetched_data) => {
       if (fetched_data) {
         this.data["local"] = JSON.parse(fetched_data);
       }
@@ -47,7 +56,7 @@ export class PluginDataManager {
     let json_serialized_data = JSON.stringify(this.data["local"]);
     return this.figma.clientStorage
       .setAsync(DATA_KEY, json_serialized_data)
-      .then(event => {
+      .then((event) => {
         this.updatePluginDataToUI();
       });
   }
