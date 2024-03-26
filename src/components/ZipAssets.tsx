@@ -53,18 +53,22 @@ type ExportableNode = {
   };
 };
 
-export const ZipAssets = ({ data }) => {
+export const ZipAssets = ({ data }) => { 
   data &&
     new Promise((resolve) => {
       let zip = new JSZip();
 
       for (data of data) {
-        const { bytes, name, setting } = data;
+        const { bytes, parentNodeName, name, setting } = data; // Retrieve parent node's name
         const cleanBytes = typedArrayToBuffer(bytes);
         const type = exportTypeToBlobType(setting.format);
         const extension = exportTypeToFileExtension(setting.format);
         let blob = new Blob([cleanBytes], { type });
-        zip.file(`${name}${setting.suffix}${extension}`, blob, {
+        
+        // Include parent node's name in folder structure
+        const folderName = parentNodeName + "/" + setting.format; // Create folder structure
+        
+        zip.folder(folderName).file(`${name}${setting.suffix}${extension}`, blob, {
           base64: true,
         });
       }
