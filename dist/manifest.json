@@ -3,5 +3,8 @@
   "name": "Zip assets 1.0",
   "main": "plugin.js",
   "ui": "index.html",
-  "id": "945461539774727755"
+  "id": "1328660183313558329",
+  "editorType": [
+    "figma"
+  ]
 }

@@ -53,22 +53,23 @@ type ExportableNode = {
   };
 };
 
-export const ZipAssets = ({ data }) => { 
+export const ZipAssets = ({ data }) => {
+  // return <div>Zip zip modafoka</div>
   data &&
     new Promise((resolve) => {
       let zip = new JSZip();
 
       for (data of data) {
-        const { bytes, parentNodeName, name, setting } = data; // Retrieve parent node's name
+        const { bytes, parentNodeName, name, setting } = data;
         const cleanBytes = typedArrayToBuffer(bytes);
         const type = exportTypeToBlobType(setting.format);
         const extension = exportTypeToFileExtension(setting.format);
         let blob = new Blob([cleanBytes], { type });
-        
+
         // Include parent node's name in folder structure
-        const folderName = parentNodeName + "/" + setting.format; // Create folder structure
-        
-        zip.folder(folderName).file(`${name}${setting.suffix}${extension}`, blob, {
+        const folderName = parentNodeName + "/assets";
+
+        zip.folder(folderName).file(`${name.replace(/^@\d+\s*/, '').toLowerCase()}${setting.suffix}${extension}`, blob, {
           base64: true,
         });
       }
