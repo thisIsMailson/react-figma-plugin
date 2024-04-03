@@ -47,12 +47,12 @@ const getNodes = async (nodes) => {
 
         nodeExportSettings.forEach((setting) => {
           // Remove leading space and prefix
-          const cleanedName = name.trim().replace(/^@\d+\s*/, '');
+          const cleanedName = name.trim();
 
           // Check if "name" starts with "@1" or "@2"
-          if (name.startsWith('@1')) {
+          if (cleanedName.startsWith('@1') || cleanedName.endsWith('@1')) {
             setting.constraint.value = 0.5;
-          } else if (name.startsWith('@2')) {
+          } else if (cleanedName.startsWith('@2') || cleanedName.endsWith('@2')) {
             setting.constraint.value = 1;
           }
         });
